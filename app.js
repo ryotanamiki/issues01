@@ -20,20 +20,7 @@ app.get('/', (req, res) => {
   const sql = "select * from users";
   // 参考例
   const num = 10000;
-  const users = [
 
-       {id: '1','name': 's.chiba',
-      'email': 's.chiba@gmail.com'},
-       {id: '2','name': 't.kosuge',
-      'email': 't.kosuge@gmail.com'},
-       {id: '3','name': 'm.chiba',
-      'email': 'm.chiba@gmail.com'},
-       {id: '4','name': 't.suzuki',
-      'email': 't.suzuki@gmail.com'},
-       {id: '5','name': 't.hasegawa',
-      'email': 't.hasegawa@gmail.com'}
-
-  ] 
   // 基礎課題
   /* ==========従来通りJavaScriptno要領で書いてください。==========
     ここで記載する内容はブラウザに出力するための情報のみになります。上記参考例のconst num = 10000;のように
@@ -65,7 +52,6 @@ app.get('/', (req, res) => {
         プロパティ名はindex.ejsで使用しますので、何の値が入ってるかわかるような名前にしましょう。
       */
       number: num,
-      users1: users
     });
   });
 });
@@ -75,7 +61,8 @@ app.get('/edit/:id', (req, res) => {
   con.query(sql, [req.params.id], function (err, result, fields) {
     if (err) throw err;
     res.render('edit', {
-      user: result
+      user: result,
+      users: user
     });
   });
 });

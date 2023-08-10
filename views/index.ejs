@@ -50,11 +50,10 @@
         // email: s.chiba@gmail.com
     </script>
     <script>
-        let users = JSON.parse('<%= JSON.stringify(users1) %>'.replace(/&#34;/g, '"'));
-
+        let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
         function getUserInfo() {
             let userName = document.getElementById('userName').value;
-            let user = users.find(user => user.id === userName);
+            let user = users.find(user => user.id.toString() === userName);
 
             if (user) {
                 let userInformation = document.getElementById('userInfo');
@@ -63,7 +62,12 @@
                 <p>Email: ${user.email}</p>
                 `;
             } else {
-                alert('Not found it.');
+                let userInformation = document.getElementById('userInfo');
+                userInformation.innerHTML = `
+                <p>Not found.</p>
+                `;
+
+                /*alert('Not found it.');*/
             }
         }
     </script>
