@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
        {id: '5','name': 't.hasegawa',
       'email': 't.hasegawa@gmail.com'}
 
-  ]
+  ] 
   // 基礎課題
   /* ==========従来通りJavaScriptno要領で書いてください。==========
     ここで記載する内容はブラウザに出力するための情報のみになります。上記参考例のconst num = 10000;のように
