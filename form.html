@@ -3,13 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>入力フォーム</title>
+    <title>課題03-01</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <style>
+        th {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>入力フォーム</h1>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th @click="sortTable('id')">ID</th>
+                    <th @click="sortTable('name')">名前</th>
+                    <th @click="sortTable('company')">会社名</th>
+                    <th @click="sortTable('division')">部署</th>
+                    <th @click="sortTable('title')">役職</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="cards in cardsData" :key="cards.id">
+                    <td>{{ cards.id }}</td>
+                    <td>{{ cards.name }}</td>
+                    <td>{{ cards.company }}</td>
+                    <td>{{ cards.division }}</td>
+                    <td>{{ cards.title }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- <h1>入力フォーム</h1> -->
     <!--ここに追加-->
-    <form action="/" method="POST" onsubmit="return validateForm();">
+    <!-- <form action="/" method="POST" onsubmit="return validateForm();">
         <label for="name">名前</label>
         <input type="text" id="name" name="name" size="22"><br>
 
@@ -19,35 +52,78 @@
         <button type="submit">送信</button>
     </form>
 
-    <div id="error-container" style="color: red;"></div>
+    <div id="error-container" style="color: red;"></div> -->
 
 
 
     <script>
-        function validateForm() {
-            const nameInput = document.getElementById('mail');
-            const emailinput = document.getElementById('email');
-            const errorContainer = document.getElementById('error-container');
-            errorContainer.innerHTML = '';
+        //function validateForm() {
+        //    const nameInput = document.getElementById('mail');
+        //    const emailinput = document.getElementById('email');
+        //    const errorContainer = document.getElementById('error-container');
+        //    errorContainer.innerHTML = '';
 
-            const nameOk = /^[a-zA-Z.]+$/;
-            const emailOk = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        //    const nameOk = /^[a-zA-Z.]+$/;
+        //    const emailOk = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-            let isValid = true;
+        //    let isValid = true;
 
-            if (!namePattern.test(nameInput.value)) {
-                isValid = false;
-                errorContainer.innerHTML += '<p>名前は半角英字とドット(.)のみ入力可能です。</p>';
+        //    if (!namePattern.test(nameInput.value)) {
+        //        isValid = false;
+        //        errorContainer.innerHTML += '<p>名前は半角英字とドット(.)のみ入力可能です。</p>';
+        //    }
+
+        //    if (!emailPattern.test(emailInput.value)) {
+        //        isValid = false;
+        //        errorContainer.innerHTML += '<p>正しいメールアドレスを入力してください。</p>';
+        //    }
+
+        //    return isValid;
+        //}
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                cardsData: [],
+                sortKey: '',
+                isAscending: true
+            },
+
+            computed: {
+                sortedCardsDate: function () {
+                    if (this.sortKey) {
+                        return this.cardsData;
+                    }
+
+                    return this.cardsData.slice.sort((a, b) => {
+                        const modifier = this.isAscending ? 1 : -1;
+                        if (a[this.sortKey] < b[this.sortKey]) return -1 * modifier;
+                        if (a[this.sortKey] > b[this.sortKey]) return 1 * modifier;
+                        return 0;
+                    });
+                }
+            },
+            methods: {
+                sortTable: function (key) {
+                    if (this.sortKey === key) {
+                        this.isAscending = !this.isAscending;
+                    } else {
+                        this.sortKey = key;
+                        this.isAscending = true;
+                    }
+                }
+            },
+
+            mounted() {
+                // JSONデータを取得して表示
+                fetch('cards.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.cardsData = data;
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
             }
-
-            if (!emailPattern.test(emailInput.value)) {
-                isValid = false;
-                errorContainer.innerHTML += '<p>正しいメールアドレスを入力してください。</p>';
-            }
-
-            return isValid;
-        }
-
+        });
     </script>
 </body>
 
