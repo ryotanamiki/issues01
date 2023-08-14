@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>入力フォーム</title>
+</head>
+
+<body>
+    <h1>入力フォーム</h1>
+    <!--ここに追加-->
+    <form action="/" method="POST" onsubmit="return validateForm();">
+        <label for="name">名前</label>
+        <input type="text" id="name" name="name" size="22"><br>
+
+        <label for="email">email</label>
+        <input type="email" id="email" name="mail"><br>
+
+        <button type="submit">送信</button>
+    </form>
+
+    <div id="error-container" style="color: red;"></div>
+
+
+
+    <script>
+        function validateForm() {
+            const nameInput = document.getElementById('mail');
+            const emailinput = document.getElementById('email');
+            const errorContainer = document.getElementById('error-container');
+            errorContainer.innerHTML = '';
+
+            const nameOk = /^[a-zA-Z.]+$/;
+            const emailOk = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            let isValid = true;
+
+            if (!namePattern.test(nameInput.value)) {
+                isValid = false;
+                errorContainer.innerHTML += '<p>名前は半角英字とドット(.)のみ入力可能です。</p>';
+            }
+
+            if (!emailPattern.test(emailInput.value)) {
+                isValid = false;
+                errorContainer.innerHTML += '<p>正しいメールアドレスを入力してください。</p>';
+            }
+
+            return isValid;
+        }
+
+    </script>
+</body>
+
+</html>

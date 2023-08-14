@@ -8,10 +8,27 @@
 </head>
 
 <body>
-    <input type="text" id="userName">
-    <button onclick="getUserInfo()">Get User Info</button>
-
-    <div id="userInfo"></div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i=0; i < users.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= users[i].name %>
+                    </td>
+                    <td>
+                        <%= users[i].email %>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+    <p><a href="/create">ユーザーの追加</a></p>
 
 
     <!-- <table>
@@ -26,11 +43,43 @@
     <p id="textTag"></p>
 
     <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
-    <script type="text/javascript">
+    <script type="text/javascript"></script>
 
-        // 参考例
-        //let textTag = document.getElementById('textTag');
-        //let NUMBER = `<%= number %>`;
+
+    <script>
+
+
+        // 51行目あたりに追加
+        app.post('/', (req, res) => {
+            const sql = "INSERT INTO users SET ?"
+            con.query(sql, req.body, function (err, result, fields) {
+                if (err) throw err;
+                console.log(result);
+                res.redirect('/');
+            });
+        });
+
+        app.get('/create', (req, res) => {
+            res.sendFile(path.join(__dirname, 'html/form.html'))
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- // 参考例
+    //let textTag = document.getElementById('textTag');
+    //let NUMBER = `<%= number %>`;
         //textTag.innerHTML = NUMBER;
         // ここからはapp.jsで作成した値をここでブラウザに出力するように機能を実装していきましょう。上記の参考例を元にやってみましょう。
         // 基礎課題01:画面に表示する機能作りましょう。
@@ -39,38 +88,19 @@
         配列とオブジェクトリストをapp.jsから取得するときに以下のやり方が必要になります。
         変数名は自由に決めてください。プロパティ名についてはapp.jsでオブジェクト内に格納したプロパティ名を使用してください。
         以下使用する際は<%#の「#」部分を「=」に変更するよう気をつけてください。%>
-        let 変数名 = JSON.parse('<%# JSON.stringify(プロパティ名) %>'.replace(/&#34;/g, '"'));
-        */
+            let 変数名 = JSON.parse('<%# JSON.stringify(プロパティ名) %>'.replace(/&#34;/g, '"'));
+                */
 
-        // 基礎課題02:HTML内にulタグを作成し、liタグでapp.jsで作成した情報を画面に表示して下さい。
+                // 基礎課題02:HTML内にulタグを作成し、liタグでapp.jsで作成した情報を画面に表示して下さい。
 
-        // 基礎課題03:作成したオブジェクトリストをブラウザに出力して下さい。その場合以下の様に出力して下さい。
-        // 例）
-        // name: s.chiba
-        // email: s.chiba@gmail.com
-    </script>
-    <script>
-        let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
-        function getUserInfo() {
-            let userName = document.getElementById('userName').value;
-            let user = users.find(user => user.id.toString() === userName);
+                // 基礎課題03:作成したオブジェクトリストをブラウザに出力して下さい。その場合以下の様に出力して下さい。
+                // 例）
+                // name: s.chiba
+                // email: s.chiba@gmail.com -->
 
-            if (user) {
-                let userInformation = document.getElementById('userInfo');
-                userInformation.innerHTML = `
-                <p>Name: ${user.name}</p>
-                <p>Email: ${user.email}</p>
-                `;
-            } else {
-                let userInformation = document.getElementById('userInfo');
-                userInformation.innerHTML = `
-                <p>Not found.</p>
-                `;
 
-                /*alert('Not found it.');*/
-            }
-        }
-    </script>
+
+
 </body>
 
 </html>
