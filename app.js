@@ -63,8 +63,7 @@ app.get('/edit/:id', (req, res) => {
   con.query(sql, [req.params.id], function (err, result, fields) {
     if (err) throw err;
     res.render('edit', {
-      user: result,
-      users: user
+      user: result
     });
   });
 });
