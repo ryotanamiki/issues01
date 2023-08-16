@@ -33,7 +33,7 @@
             const emailInput = document.getElementById('email');
             const emailError = document.getElementById('emailError');
 
-            // 名前のバリデーション
+
             const namePattern = /^[a-zA-Z.]+$/;
             if (!namePattern.test(nameInput.value)) {
                 nameError.textContent = "名前は半角英字と「.」のみ入力可能です。";
@@ -42,7 +42,7 @@
                 nameError.textContent = "";
             }
 
-            // Emailのバリデーション（HTML5のバリデーションを活用）
+
             if (!emailInput.checkValidity()) {
                 emailError.textContent = "有効なメールアドレスを入力してください。";
                 return false;
@@ -50,7 +50,7 @@
                 emailError.textContent = "";
             }
 
-            return true; // バリデーションが通過した場合に送信を許可
+            return true;
         }
     </script>
 </body>
