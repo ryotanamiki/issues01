@@ -8,10 +8,29 @@
 </head>
 
 <body>
-    <input type="text" id="userName">
-    <button onclick="getUserInfo()">Get User Info</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i=0; i < users.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= users[i].name %>
+                    </td>
+                    <td>
+                        <%= users[i].email %>
+                    </td>
+                    <td><a href="/edit/<%= users[i].id %>">更新</a></td>
+                    <td><a href="/delete/<%= users[i].id %>">削除</a></td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
 
-    <div id="userInfo"></div>
 
 
     <!-- <table>
